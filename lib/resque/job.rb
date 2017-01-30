@@ -48,7 +48,7 @@ module Resque
     def self.decode(object)
       Resque.decode(object)
     end
-    
+
     # Given a word with dashes, returns a camel cased version of it.
     def classify(dashed_word)
       Resque.classify(dashed_word)
@@ -286,7 +286,7 @@ module Resque
         end
       rescue Exception => e
         error_message = "Additional error (#{e.class}: #{e}) occurred in running failure hooks for job #{inspect}\n" \
-                        "Original error that caused job failure was #{e.class}: #{exception.class}: #{exception.message}"
+                        "Original error that caused job failure was: #{exception.class}: #{exception} at:\n"
         raise RuntimeError.new(error_message)
       ensure
         @failure_hooks_ran = true
