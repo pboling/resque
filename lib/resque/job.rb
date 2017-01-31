@@ -196,8 +196,8 @@ module Resque
         # Return true if the job was performed
         return job_was_performed
 
-      # If an exception occurs during the job execution, look for an
-      # on_failure hook then re-raise.
+          # If an exception occurs during the job execution, look for an
+          # on_failure hook then re-raise.
       rescue Object => e
         run_failure_hooks(e)
         raise e
@@ -258,8 +258,8 @@ module Resque
     # Equality
     def ==(other)
       queue == other.queue &&
-        payload_class == other.payload_class &&
-        args == other.args
+          payload_class == other.payload_class &&
+          args == other.args
     end
 
     def before_hooks
@@ -285,8 +285,8 @@ module Resque
           failure_hooks.each { |hook| payload_class.send(hook, exception, *job_args) } unless @failure_hooks_ran
         end
       rescue Exception => e
-        error_message = "Additional error (#{e.class}: #{e}) occurred in running failure hooks for job #{inspect}\n" \
-                        "Original error that caused job failure was: #{exception.class}: #{exception} at:\n"
+        error_message = "Additional error (#{e.class}: #{e.message} #{e.backtrace.join("\n")} occurred in running failure hooks for job #{inspect}\n" \
+                        "Original error that caused job failure was #{exception.class}: #{exception.message} #{exception.backtrace.join("\n")}"
         raise RuntimeError.new(error_message)
       ensure
         @failure_hooks_ran = true
