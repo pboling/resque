@@ -286,7 +286,7 @@ module Resque
         end
       rescue Exception => e
         error_message = "Additional error (#{e.class}: #{e.message} #{e.backtrace.join("\n")} occurred in running failure hooks for job #{inspect}\n" \
-                        "Original error that caused job failure was #{exception.class}: #{exception.message} #{exception.backtrace.join("\n")}"
+                        "Original error that caused job failure was #{exception.class}: #{exception.message} #{Array(exception.backtrace).join("\n")}"
         raise RuntimeError.new(error_message)
       ensure
         @failure_hooks_ran = true
